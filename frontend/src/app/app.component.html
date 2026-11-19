@@ -1,0 +1,18 @@
+<header class="cabecalho">
+  <a routerLink="/" class="marca" aria-label="BicoJá, início"><span class="marca-icone">B</span> BicoJá</a>
+  <nav aria-label="Menu principal">
+    <a routerLink="/">Início</a>
+    <a href="#como-funciona">Como funciona</a>
+    <a href="#profissionais">Profissionais</a>
+    <a href="#categorias">Categorias</a>
+  </nav>
+</header>
+
+<main>
+  <router-outlet />
+  <section class="status-api" aria-label="Teste da API">
+    <button type="button" (click)="testarConexao()" [disabled]="verificando()">Testar conexão com backend</button>
+    @if (mensagemApi()) { <p role="status">{{ mensagemApi() }}</p> }
+  </section>
+</main>
+<footer class="rodape">BicoJá — Precisou? Achou. Contratou. · Protótipo acadêmico</footer>

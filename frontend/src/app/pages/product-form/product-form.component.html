@@ -1,0 +1,11 @@
+<section class="form-pagina"><a routerLink="/" class="voltar">← Voltar ao início</a><span class="etiqueta">BICOJÁ</span><h1>{{ modo === 'profissional' ? 'Cadastre seu trabalho' : 'Publique um bico' }}</h1><p>{{ modo === 'profissional' ? 'Apresente seus serviços para novos clientes.' : 'Conte qual serviço você precisa contratar.' }}</p>
+<form (ngSubmit)="salvar()" #form="ngForm">
+@if (modo === 'profissional') {<label>Seu nome<input name="nome" [(ngModel)]="dados.nome" required maxlength="120" placeholder="Nome completo" /></label><label>Especialidade<input name="especialidade" [(ngModel)]="dados.especialidade" required maxlength="120" placeholder="Ex: Pintor residencial" /></label>}
+@else {<label>Título do bico<input name="titulo" [(ngModel)]="dados.titulo" required maxlength="120" placeholder="Ex: Preciso pintar uma sala" /></label><label>Descrição<textarea name="descricao" [(ngModel)]="dados.descricao" required maxlength="2000" rows="4" placeholder="Descreva o serviço"></textarea></label>}
+<label>Categoria<select name="categoria" [(ngModel)]="dados.categoria_id" required><option [ngValue]="0">Selecione uma categoria</option>@for(c of categorias();track c.id){<option [ngValue]="c.id">{{c.nome}}</option>}</select></label>
+<label>Cidade<input name="cidade" [(ngModel)]="dados.cidade" required maxlength="120" placeholder="Ex: Uberaba" /></label>
+<label>{{modo === 'profissional' ? 'Valor por hora (R$)' : 'Orçamento estimado (R$)'}}<input name="valor" [(ngModel)]="dados.valor" type="number" min="0" max="1000000" step="0.01" required /></label>
+@if(erro()){<p role="alert" class="erro">{{erro()}}</p>}
+<button type="submit" [disabled]="form.invalid || enviando() || !dados.categoria_id">{{enviando() ? 'Salvando...' : (modo === 'profissional' ? 'Cadastrar profissional' : 'Publicar bico')}}</button>
+<p class="nota">Protótipo acadêmico: dados cadastrados são armazenados no banco de desenvolvimento. Não há contratação nem pagamento real.</p>
+</form></section>
